@@ -1,27 +1,37 @@
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, IPoolable
 {
     private IEnemyStrategy currentStrategy;
     private Transform coreTransform;
     [SerializeField] private float moveSpeed = 3f;
+    private bool isCoreDestroyed = false;
 
-    private void Awake()
+    public void Initialize(Transform targetCore, IEnemyStrategy strategy)
     {
-        CoreManager core = FindObjectOfType<CoreManager>();
-        if (core != null)
-        {
-            coreTransform = core.transform;
-        }
+        coreTransform = targetCore;
+        currentStrategy = strategy;
     }
 
-    public void SetStrategy(IEnemyStrategy newStrategy)
+    public void OnSpawn()
     {
-        currentStrategy = newStrategy;
+        isCoreDestroyed = false;
+        CoreManager.OnCoreDestroyed += HandleCoreDestroyed;
+    }
+
+    public void OnDespawn()
+    {
+        CoreManager.OnCoreDestroyed -= HandleCoreDestroyed;
+    }
+
+    private void HandleCoreDestroyed()
+    {
+        isCoreDestroyed = true;
     }
 
     private void Update()
     {
+        if (isCoreDestroyed || coreTransform == null) return;
         currentStrategy?.ExecuteStrategy(transform, coreTransform, moveSpeed);
     }
 }
