@@ -26,4 +26,17 @@ public class CoreManager : MonoBehaviour, IDamageable
             OnCoreDestroyed?.Invoke();
         }
     }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+    if (other.GetComponent<Enemy>() != null)
+    {
+        TakeDamage(10);
+        ObjectPool pool = FindFirstObjectByType<ObjectPool>();
+        if (pool != null) 
+        {
+            pool.Despawn(other.gameObject);
+        }
+    }
+    }
 }
