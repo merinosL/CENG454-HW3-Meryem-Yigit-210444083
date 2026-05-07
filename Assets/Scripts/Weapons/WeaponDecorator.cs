@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public abstract class WeaponDecorator : IWeapon
 {
     protected IWeapon wrappedWeapon;
@@ -7,8 +9,8 @@ public abstract class WeaponDecorator : IWeapon
         wrappedWeapon = weapon;
     }
 
-    public virtual void Fire()
+    public virtual void Fire(Transform firePoint, GameObject bulletPrefab)
     {
-        wrappedWeapon?.Fire();
+        wrappedWeapon?.Fire(firePoint, bulletPrefab);
     }
 }

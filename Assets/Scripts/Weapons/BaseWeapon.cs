@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class BaseWeapon : IWeapon
 {
-    public void Fire()
+    public void Fire(Transform firePoint, GameObject bulletPrefab)
     {
-        Debug.Log("Fired standard projectile");
+        Object.Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
     }
 }

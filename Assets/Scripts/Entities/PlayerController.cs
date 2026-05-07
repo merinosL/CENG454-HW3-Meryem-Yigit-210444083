@@ -3,6 +3,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private IWeapon currentWeapon;
+    [SerializeField] private GameObject bulletPrefab;
 
     private void Start()
     {
@@ -13,7 +14,7 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            currentWeapon.Fire();
+            currentWeapon.Fire(transform, bulletPrefab);
         }
 
         if (Input.GetKeyDown(KeyCode.U))
