@@ -4,7 +4,7 @@ public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] private ObjectPool enemyPool;
     [SerializeField] private Transform coreTransform;
-    [SerializeField] private float spawnInterval = 2f;
+    [SerializeField] private float spawnInterval = 3f;
     
     private float timer;
 
@@ -20,12 +20,16 @@ public class EnemySpawner : MonoBehaviour
 
     private void SpawnEnemy()
     {
+        if (enemyPool == null) return;
+
         GameObject enemyObj = enemyPool.Spawn(transform.position, Quaternion.identity);
         Enemy enemy = enemyObj.GetComponent<Enemy>();
         
         if (enemy != null)
         {
-            IEnemyStrategy strategy = Random.value > 0.5f ? new DirectAttackStrategy() : new PatrolStrategy();
+            // Devriye (Patrol) stratejisi tamamen kaldırıldı.
+            // Artık doğan her düşman doğrudan ortadaki çekirdeğe kilitlenip yürüyecek.
+            IEnemyStrategy strategy = new DirectAttackStrategy();
             enemy.Initialize(coreTransform, strategy);
         }
     }

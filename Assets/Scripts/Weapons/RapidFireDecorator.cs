@@ -8,7 +8,7 @@ public class RapidFireDecorator : WeaponDecorator
     {
         base.Fire(firePoint, bulletPrefab);
         
-        Vector3 offset = new Vector3(0, 0.5f, 0);
+        Vector3 offset = new Vector3(-0.5f, 0, 0);
         Object.Instantiate(bulletPrefab, firePoint.position + offset, Quaternion.identity);
     }
 }
