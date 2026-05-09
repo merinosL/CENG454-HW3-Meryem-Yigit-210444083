@@ -2,25 +2,25 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
-    private void OnEnable()
+    private void Awake()
     {
-        CoreManager.OnHealthChanged += UpdateHealthDisplay;
-        CoreManager.OnCoreDestroyed += ShowGameOver;
+        CoreManager.OnHealthChanged += HandleHealthChanged;
+        CoreManager.OnCoreDestroyed += HandleCoreDestroyed;
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
-        CoreManager.OnHealthChanged -= UpdateHealthDisplay;
-        CoreManager.OnCoreDestroyed -= ShowGameOver;
+        CoreManager.OnHealthChanged -= HandleHealthChanged;
+        CoreManager.OnCoreDestroyed -= HandleCoreDestroyed;
     }
 
-    private void UpdateHealthDisplay(int currentHealth)
+    private void HandleHealthChanged(int currentHealth)
     {
-        Debug.Log("Core Health: " + currentHealth);
+        Debug.Log("[UI SYSTEM] Current Core Health: " + currentHealth);
     }
 
-    private void ShowGameOver()
+    private void HandleCoreDestroyed()
     {
-        Debug.Log("Game Over! Core Breach!");
+        Debug.Log("[UI SYSTEM] Alert: Core Integrity Compromised!");
     }
 }

@@ -27,8 +27,6 @@ public class EnemySpawner : MonoBehaviour
         
         if (enemy != null)
         {
-            // Devriye (Patrol) stratejisi tamamen kaldırıldı.
-            // Artık doğan her düşman doğrudan ortadaki çekirdeğe kilitlenip yürüyecek.
             IEnemyStrategy strategy = new DirectAttackStrategy();
             enemy.Initialize(coreTransform, strategy);
         }
