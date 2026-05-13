@@ -90,4 +90,10 @@ public class CoreManager : MonoBehaviour
             pool?.Despawn(other.gameObject);
         }
     }
+
+    private void Awake()
+    {
+        OnHealthChanged = null;
+        OnCoreDestroyed = null;
+    }
 }
